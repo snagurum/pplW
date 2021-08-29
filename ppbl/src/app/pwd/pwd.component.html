@@ -2,11 +2,9 @@
     <div>
         Password:
         <input id="authentication" name="authentication" type="text" #authentication/>
-
         <input name="authenticate" type="button" (click)="onAuthenticate(authentication.value)" value="authenticate"/>
-    </div>
-    <br/>    
 </div>
+<br/>
 <div>
     <div>
         site:<input name="site" type="text" #site/> 
@@ -15,4 +13,9 @@
         <input name="submit" type="button" (click)="onCreateSite(site.value,userName.value,password.value)" value="submit"/>
     </div>
 </div>
+</div>
+<br/>
+<br/>
+<hr/>    
+<br/>
 <br/>

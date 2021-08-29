@@ -10,17 +10,14 @@ export class SiteService{
     private URL: string = this.PBL_SERVICE_HOST+"/api/";
 
     constructor(private _http: HttpClient){
-
     }
 
     getSites(){
-        return this._http.get('/api/sites');
-        
+        return this._http.get('/api/sites');        
     }
 
     createSite(site: WebSite){
         this._http.post('/api/site',site).subscribe(()=>{
-            console.log("result = " );
         });
     }
 

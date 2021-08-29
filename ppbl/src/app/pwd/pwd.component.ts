@@ -16,16 +16,13 @@ export class PwdComponent  implements OnInit {
 
     
     constructor(private _siteService: SiteService){
-      // this.pwds = this._siteService.getSites();
     }
 
     ngOnInit():void {
-        // console.log(`this.title`);
     }
 
     onCreateSite(site: String, userName: String, password: String){
-      let webSite = {_id:undefined, webSite: site, userName: userName, password: password};
-    
+      let webSite:WebSite = {_id:undefined, webSite: site, userName: userName, password: password};    
       this._siteService.createSite(webSite);
     }
 

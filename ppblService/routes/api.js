@@ -22,22 +22,23 @@ const WebSite = mongoose.model('WebSite', webSiteSchema);
 
 
 //_ GET api listing. _/
-router.get('/', (req, res) => {
+router.get('/api/', (req, res) => {
         res.send('api works');
 });
 
 //_ GET all webSites. _/
-router.get('/sites', (req, res) => {
+router.get('/api/sites', (req, res) => {
     console.log('getting sites..............................');
     WebSite.find({}, (err, webSites) => {
+        console.log("webSites = ",webSites);
         if (err) res.status(500).send(error)
-        res.status(200).json(users);
+        res.status(200).json(webSites);
     });
 });
 
 //_ GET one webSite. _/
-router.get('/site/:id', (req, res) => {
-    console.log('getting site'+req.param.id+'..............................');
+router.get('/api/site/:id', (req, res) => {
+    console.log('getting site request by id'+req.param.id+'..............................');
     WebSite.findById(req.param.id, (err, webSite) => {
         if (err) res.status(500).send(error)
         res.status(200).json(webSite);
@@ -45,7 +46,7 @@ router.get('/site/:id', (req, res) => {
 });
 
 //_ Create a webSite. _/
-router.post('/webSite', (req, res) => {
+router.post('/api/site', (req, res) => {
     let webSite = new WebSite({
         webSite: req.body.webSite,
         userName: req.body.userName,

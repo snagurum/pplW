@@ -1,18 +1,18 @@
 <div>
     <div>
         Password:
-        <input name="pwd" type="text" />
+        <input id="authentication" name="authentication" type="text" #authentication/>
 
-        Salt:
-        <input name="salt" type="text" />
+        <input name="authenticate" type="button" (click)="onAuthenticate(authentication.value)" value="authenticate"/>
     </div>
     <br/>    
 </div>
 <div>
     <div>
-        site:<input name="site" type="text" /> 
-        username:<input name="username" type="text" />
-        password:<input name="password" type="text" />
+        site:<input name="site" type="text" #site/> 
+        username:<input name="username" type="text" #userName/>
+        password:<input name="password" type="text" #password/>
+        <input name="submit" type="button" (click)="onCreateSite(site.value,userName.value,password.value)" value="submit"/>
     </div>
 </div>
 <br/>

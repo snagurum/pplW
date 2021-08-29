@@ -1,39 +1,27 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Password } from "../models/Password";
+import { WebSite } from "../models/WebSite";
 import { PasswordsComponent } from "../passwords/passwords.component";
 
 
 @Injectable()
 export class SiteService{
-    private PBL_SERVICE_HOST = "http://localhost";
+    private PBL_SERVICE_HOST = "http://localhost:3000";
     private URL: string = this.PBL_SERVICE_HOST+"/api/";
-
-    webSites: Password[]=[];
 
     constructor(private _http: HttpClient){
 
     }
 
-    getSites(): Password[]{
-        this._http.get(this.URL+'sites')
-        .subscribe((sites:any) => {
-            console.log(sites);
-            this.webSites=sites;
-            return sites;
-        });
-        return [];
+    getSites(){
+        return this._http.get('/api/sites');
+        
     }
 
-    createSite(site: Password){
-        this._http.post(this.URL,{
-            webSite:"google.com"
-            ,userName:"google"
-            ,password: "googlePassword"
-        }).subscribe(()=>{
-
+    createSite(site: WebSite){
+        this._http.post('/api/site',site).subscribe(()=>{
+            console.log("result = " );
         });
-    
     }
 
 

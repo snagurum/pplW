@@ -16,6 +16,8 @@ COPY . /usr/src/app
 # Expose the port the app runs in
 EXPOSE 3000
 
+RUN cat /etc/hosts
+
 # Serve the app
 CMD ["npm", "start"]
 

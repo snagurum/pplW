@@ -2,7 +2,10 @@
 const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
-const DATABASE_HOST = "database";
+//const DATABASE_HOST = "database";
+//const DATABASE_HOST = "localhost";
+// const DATABASE_HOST = "172.17.0.2";
+const DATABASE_HOST = "192.168.1.14";
 
 // MongoDB URL from the docker-compose file
 const dbHost = 'mongodb://'+DATABASE_HOST+'/mean-docker';

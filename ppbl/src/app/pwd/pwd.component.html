@@ -1,21 +1,32 @@
-<div>
-    <div>
-        Password:
-        <input id="authentication" name="authentication" type="text" #authentication/>
-        <input name="authenticate" type="button" (click)="onAuthenticate(authentication.value)" value="authenticate"/>
-</div>
-<br/>
-<div>
-    <div>
-        site:<input name="site" type="text" #site/> 
-        username:<input name="username" type="text" #userName/>
-        password:<input name="password" type="text" #password/>
-        <input name="submit" type="button" (click)="onCreateSite(site.value,userName.value,password.value)" value="submit"/>
+<div class="card border-success mb-3" style="border:25px">
+    <div  class="mb-3 row ">
+        <div class="input-group flex-nowrap">
+            <span class="input-group-text" id="addon-wrapping">pwd</span>
+            <input type="text" class="form-control" placeholder="authentication" aria-label="password" aria-describedby="addon-wrapping" #authentication>
+            <button class="btn btn-outline-primary" type="button" name="authenticate"  (click)="onAuthenticate(authentication.value)">authenticate</button>        
+        </div>
     </div>
+    <br/>
+    <div>
+        <div class="card m-2">
+            <div class="input-group flex-nowrap m-2">
+                <div class="row">
+                    <label style="text-align:center" >site</label>
+                    <label style="text-align:center" >username</label>   
+                    <label style="text-align:center" >password</label>
+                </div>
+                <div class="row">
+                    <input name="site" type="text" #site/> 
+                    <input name="username" type="text" #userName/>
+                    <input name="password" type="text" #password/>
+                </div>
+                <input  class="btn btn-outline-success m-5" name="submit" type="button" (click)="onCreateSite(site.value,userName.value,password.value)" value="submit"/>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <br/>
+    <hr/>    
+    <br/>
+    <br/>
 </div>
-</div>
-<br/>
-<br/>
-<hr/>    
-<br/>
-<br/>

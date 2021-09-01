@@ -2,6 +2,7 @@ import { OnInit, ɵɵsetComponentScope } from '@angular/core';
 import { Component } from '@angular/core';
 import { SiteService } from '../service/site.service';
 import { WebSite } from '../models/WebSite';
+import { AesCyrptoService } from '../service/aes.cyrpto.service';
 
 @Component({
   selector: 'app-pwd',
@@ -14,8 +15,10 @@ export class PwdComponent  implements OnInit {
   public userName : string = '';
   public password : string = '';
 
+
     
-    constructor(private _siteService: SiteService){
+    constructor(private _siteService: SiteService,
+     private _aesCyrptoService: AesCyrptoService){
     }
 
     ngOnInit():void {
@@ -26,8 +29,12 @@ export class PwdComponent  implements OnInit {
       this._siteService.createSite(webSite);
     }
 
-    onAuthenticate(password: String){
-      console.log("password = ", password);
+    onAuthenticate(authentication: string){
+      console.log("authentication = ", authentication);
+      this._aesCyrptoService.secretKey=authentication;
+      console.log("encrypt(google) = ", this._aesCyrptoService.encrypt("google"));
+      console.log("decrypt(google) = ", this._aesCyrptoService.decrypt(this._aesCyrptoService.encrypt("google")));
     }
+  }
 
-} 
+ 

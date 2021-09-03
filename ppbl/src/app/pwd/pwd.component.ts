@@ -1,8 +1,9 @@
-import { OnInit, ɵɵsetComponentScope } from '@angular/core';
+import { OnInit, Output,EventEmitter } from '@angular/core';
 import { Component } from '@angular/core';
 import { SiteService } from '../service/site.service';
 import { WebSite } from '../models/WebSite';
 import { AesCyrptoService } from '../service/aes.cyrpto.service';
+
 
 @Component({
   selector: 'app-pwd',
@@ -14,26 +15,36 @@ export class PwdComponent  implements OnInit {
   public webSite : string = '';
   public userName : string = '';
   public password : string = '';
-
-
+  public showCreateWebSite = false;
+  @Output() showAllSites: EventEmitter<boolean> =new EventEmitter();
     
     constructor(private _siteService: SiteService,
-     private _aesCyrptoService: AesCyrptoService){
+      private _aesCyrptoService: AesCyrptoService){
     }
 
     ngOnInit():void {
     }
 
-    onCreateSite(site: String, userName: String, password: String){
-      let webSite:WebSite = {_id:undefined, webSite: site, userName: userName, password: password};    
-      this._siteService.createSite(webSite);
+    onCreateSite(site: string, userName: string, password: string){
+      let webSite:WebSite = {
+        _id: undefined, webSite: site
+        , userName: this._aesCyrptoService.encrypt(userName)
+        , password: this._aesCyrptoService.encrypt(password)
+      };    
+      this._siteService.createSite(webSite)
+        .subscribe(arg => {console.log("arg = ", arg)});
+      
     }
 
-    onAuthenticate(authentication: string){
-      console.log("authentication = ", authentication);
-      this._aesCyrptoService.secretKey=authentication;
-      console.log("encrypt(google) = ", this._aesCyrptoService.encrypt("google"));
-      console.log("decrypt(google) = ", this._aesCyrptoService.decrypt(this._aesCyrptoService.encrypt("google")));
+    onAuthenticate(authenticationKey: string){
+      const encriptedSecretKey = this._aesCyrptoService.encryptedSecretKey(authenticationKey);
+      this._siteService.authenticate(encriptedSecretKey)
+      .subscribe( (e) => {
+        if ( e === 'Login OK') {
+          this.showCreateWebSite = true;
+          this.showAllSites.emit(true);
+        }
+      });
     }
   }
 

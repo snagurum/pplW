@@ -3,9 +3,9 @@ const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
 //const DATABASE_HOST = "database";
-//const DATABASE_HOST = "localhost";
+const DATABASE_HOST = "localhost";
 // const DATABASE_HOST = "172.17.0.2";
-const DATABASE_HOST = "192.168.1.14";
+//const DATABASE_HOST = "192.168.1.14";
 
 // MongoDB URL from the docker-compose file
 const dbHost = 'mongodb://'+DATABASE_HOST+'/mean-docker';
@@ -63,6 +63,37 @@ router.post('/api/site', (req, res) => {
             message: 'webSite created successfully'
         });
     });
+});
+
+//_ Authentication. _/
+router.post('/api/authenticate', (req, res) => {
+    console.log('getting passPhrase = ('+req.body.password + ') ..............................');
+    WebSite.findOne({webSite: "passPhrase", userName: "passPhrase"}, (err, webSite) => {
+        if (err) {
+            res.status(500).send(error)
+        } else if (webSite === null || webSite === undefined) {
+            let newWebSite = new WebSite({
+                webSite: "passPhrase",
+                userName: "passPhrase",
+                password: req.body.password
+            });
+            newWebSite.save(error => {
+                if (error) 
+                res.status(500).send(error);
+                else {
+                    console.log('New Login OK');
+                    res.status(200).json(  'Login OK');
+                }
+            });
+        } else if (req.body.password !== webSite.password) {
+            console.log('invalid login unauthorized req-password() = webSite.password() = ', req.body.password,'=', webSite.password);
+            res.status(201).json( 'Unauthorized');
+        } else {
+            console.log('Login OK');
+            res.status(200).json(  'Login OK');
+        }
+    });
+    
 });
 
 module.exports = router;

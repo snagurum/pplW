@@ -1,5 +1,5 @@
 <div class="card border-success mb-3" style="border:25px">
-    <div  class="mb-3 row ">
+    <div  class="mb-13 row ">
         <div class="input-group flex-nowrap">
             <span class="input-group-text" id="addon-wrapping">pwd</span>
             <input type="text" class="form-control" placeholder="authentication" aria-label="password" aria-describedby="addon-wrapping" #authentication>
@@ -7,7 +7,7 @@
         </div>
     </div>
     <br/>
-    <div>
+    <div *ngIf = "showCreateWebSite">
         <div class="card m-2">
             <div class="input-group flex-nowrap m-2">
                 <div class="row">

@@ -1,8 +1,8 @@
 export class WebSite{
 
-    webSite: String;
-    userName: String;
-    password: String;
+    webSite: string;
+    userName: string;
+    password: string;
     _id:any;
 
     constructor(){
